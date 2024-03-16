@@ -1,13 +1,12 @@
 # The PERDAW Dataset v.1.0
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10823907.svg)](https://doi.org/10.5281/zenodo.10823907) 
+
 
 The Perdaw Dataset, short for "Plan, and Elevation Representations of Doors And Windows," is a comprehensive dataset designed to facilitate research and development in the field of architectural element recognition and classification. This dataset comprises plan and elevation views of various doors and windows, providing rich and detailed representations suitable for machine learning tasks, particularly in the domain of computer vision.
 
 The original inspiration for the doors and windows comes from a widespread building typology in the former USSR and its variations in former socialist countries, sometimes called 'Khrushchyovkas'. More information on the building typology and its history can be found [here](https://en.wikipedia.org/wiki/Khrushchevka).
-
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10823907.svg)](https://doi.org/10.5281/zenodo.10823907) 
-
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white) ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
 
 #### TLDR:
 
@@ -34,14 +33,12 @@ The original inspiration for the doors and windows comes from a widespread build
 
 ## Dataset Content and Structure
 
-The dataset comprises four zip files designed to offer users access to various components, including dataset content, different dataset partitions, original 3D models utilized for image extraction, and the initial extracted images.
-
-som images and light description here
+The dataset comprises four zip files designed to offer users access to various components, including the dataset content, different partitions, the original 3D models utilized for image extraction and the initial extracted images.
 
 ### original_3d_objects_revit.zip
-This file contains 20 3D models in a **.rtv** format, compatible with Autodesk's AEC software suite, such as Revit. 
+This file contains the 20 3D models in a **.rtv** format, compatible with Autodesk's AEC software suite, such as Revit. 
 
-Below a more comprehensive description of each element can be found:
+Below, a more comprehensive description of each building component (object) can be found:
 
 #### The Doors
 | Name   | Size          | Location | Model          | Height | Length | Placement        |
@@ -93,11 +90,45 @@ Each 'Elevation View' folder of every object contains 12 images. Among these, si
 ![Plan-Thick](/images/original_2d/door_0_plan/door_0_double_exterior_windowed_hinged_thick_2100_2100_plan_224x224.jpg) ![Plan-Thin](/images/original_2d/door_0_plan/door_0_double_exterior_windowed_hinged_thin_2100_2100_plan_224x224.jpg)
 
 ### perdaw_object_view_split.zip
-This file contains the entire dataset
+This file contains the entire dataset which is grouped based on the 20 building conmponents (objects), and then their corresponding 2D views. Each folder contains 720 images. Below, an extraction of the folder structure can be seen:
 
+```
+/perdaw_v3_224x224px
+    /door_0_double_exterior_windowed_hinged_2100_2100
+        /door_0_double_exterior_windowed_hinged_2100_2100_elev
+        /door_0_double_exterior_windowed_hinged_2100_2100_plan
+    /door_1_double_exterior_windowless_hinged_2100_2100
+        /door_1_double_exterior_windowless_hinged_2100_2100_elev
+        /door_1_double_exterior_windowless_hinged_2100_2100_plan
+    ...
+```
 
+### other_splits.zip
+This file contains 12 partitions of the dataset, which were the basis for the "Towards Digitisation of Technical Drawings in Architecture: Evaluation of CNN Classification on the Perdaw Dataset" publication. Each partition has 3 sub-folders: train, test and evaluate with a split of 80/10/10 (%). More information on the paper can be found [here](#publications).
+
+##### Partitions Featuring Both Plan and Elevation Views:
+* Perdaw Dataset - 40 classes
+* Perdaw Dataset - 20 classes
+* Doors Plan and Elevations - 20 Classes
+* Windows Plan and Elevations - 20 classes
+
+##### Partitions with Only Elevation Views:
+* Only Elevation Views - 20 Classes
+* Doors - Elevation View - 10 classes
+* Windows - Elevation View - 10 classes
+
+##### Partitions with Only Plan Views:
+* Only Plan Views - 20 classes 
+* Doors - Plan View - 10 classes 
+* Windows - Plan View - 10 classes 
+
+##### Binary Partitions on Plan View Classifications:
+* Doors versus Windows - Plan View - 2 classes
+* Single versus Double Doors - Plan View - 2 classes
 
 ## Development Process
+
+![Dev-Diagram](/images/perdaw_dev_diagram_v2.png)
 
 ## Publications
 "Towards Digitisation of Technical Drawings in Architecture: Evaluation of CNN Classification on the Perdaw Dataset" is currently under review for the [Engineering Applications of Neural Networks](https://eannconf.org) which compares the performance of ResNet50, MobileNet V2 and Inception V3 on the PERDAW dataset splits (which were described under [Dataset Content and Structure](#dataset-content-and-structure)). The paper was authored by Alexandru Filip and Stella Grasshof. The code used in the development of this paper can be found [here](/code/publication_code/towards-digitisation).
